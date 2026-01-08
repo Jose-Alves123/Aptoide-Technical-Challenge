@@ -1,5 +1,5 @@
 from utils import json_util, logger_util
-from typing import Optional, Any, Dict
+from typing import Any
 import requests
 
 URL: str = "https://ws75.aptoide.com/api/7/app/getMeta"
@@ -60,7 +60,7 @@ def scrape_metadata(package_name: str) -> dict:
         description : str = "An error occurred"
 
         try:
-            description = r.json()['metadata']['errors'][0]['description']
+            description = r.json()['errors'][0]['description']
         except:
             pass
         

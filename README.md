@@ -43,7 +43,7 @@ Response (JSON):
 
 ## Tech stack and Dependencies
 
-- Python 3.13+
+- Python 3.13 (with docker)
   - FastAPI (with pydantic)
   - uvicorn
   - pytest
@@ -96,23 +96,35 @@ To run the tests we simply restart the docker compose. The tests run when we (re
 
 Swagger is supoorted by default by FastAPI.
 
+```
+http://localhost:8000/docs
+```
+
 Three schemas were implemented for this
 
 - SuccessResponse
 - ErrorResponse
 - AppMetadatada
 
-AppMetadatada is all the values that important from the package data obtained. This is passed inside the SuccessResponse.
+AppMetadatada is all the values that are important from the package data obtained. This is passed inside the SuccessResponse.
 
-Each function also has docstrings to describes, the parameters and expected results from the computation.
+Each function also has docstrings to describe the parameters and expected results from the computation.
 
 Variables are written with type hinting, usefull with pydantic (that comes with FastAPI).
 
 ## Thinking and Decisions of implementation
 
-- The structure of the code follows a main.py file in root. The route is described in the routes/api/ folder. There is also /tests folder for testing, a /utils folder for util functions and a /services folder for helper functions.
+- The structure of the code follows a main.py file in root. The route is in the routes/api/ folder. There is also /tests folder for testing, a /utils folder for util functions and a /services folder for helper functions.
 - The only endpoint allows to fetch the Aptoide API to get all relevent metadata from the package with the given name.
 - If no parameter is provided, is None or empty, accepts com.facebook.katana as default parameter
 - FastAPI was chosen because of the built-in swagger and also because it provides better run time than Django for instance.
 - No API token authentication was implemented, I believed it wasn't necessary for this assignement.
-- The testing is done by running docker compose. One of the images run the tests, whenever we run the command to start the webapp.
+- The testing is done by running docker compose. One of the images run the tests, whenever we run the command to start.
+- There seems two be two endpoints (one is cache based, the other isn't). For this assignement the one used was the one that isn't (less optimal, but avoid cache misses???)
+
+The base URLs are
+
+```
+GET https://ws75.aptoide.com/api/7/
+GET https://ws2-cache.aptoide.com/api/7/
+```

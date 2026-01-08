@@ -15,7 +15,6 @@ router = APIRouter()
         400: {"model": ErrorResponse, "description": "Invalid package name or Aptoide API error"},
         500: {"description": "Internal server error"},
     },
-    tags=["Aptoide App Metadata"],
     summary="Get Android App Metadata",
     description="""
     Retrieve detailed metadata and information about an Android application from the Aptoide store.
@@ -51,7 +50,7 @@ async def package_data(
     if not len(package_name):
         package_name = DEFAULT_PACKAGE_NAME
 
-    data : dict = scraper_service.scrape_metadata(package_name)
+    data : dict[str, str|int|None] = scraper_service.scrape_metadata(package_name)
 
     if "metadata" not in data:
         raise HTTPException(status_code=400, detail=data)

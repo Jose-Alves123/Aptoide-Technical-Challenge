@@ -109,7 +109,7 @@ def test_scrape_remote_controller():
 
 def test_scrape_gugugaga():
     res : dict = scrape_metadata("gugugaga")
-    expected_message : str = "An error occurred"
+    expected_message : str = "Application 'package:gugugaga' not found"
 
     assert res["message"] == expected_message
 
