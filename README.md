@@ -22,15 +22,15 @@ GET /aptoide?package_name=com.facebook.katana
 
 Response (JSON):
 
-```
+```json
 {
   "name": "Facebook",
-  "size": "152.5 MB",
-  "downloads": "2B",
-  "version": "532.0.0.55.71",
-  "release_date": "2025-09-30 17:06:59",
+  "size": 73126576,
+  "downloads": 2000000000,
+  "version": "543.0.0.56.73",
+  "release_date": "2025-12-27 18:47:38",
   "min_screen": "SMALL",
-  "supported_cpu": "arm64-v8a",
+  "supported_cpus": ["arm64-v8a"],
   "package_id": "com.facebook.katana",
   "sha1_signature": "8A:3C:4B:26:2D:72:1A:CD:49:A4:BF:97:D5:21:31:99:C8:6F:A2:B9",
   "developer_cn": "Facebook Corporation",
@@ -46,6 +46,7 @@ Response (JSON):
 - Python 3.13+
   - FastAPI (with pydantic)
   - uvicorn
+  - pytest
 - Docker (Dockerfile and compose)
 
 ## How to run
@@ -62,7 +63,7 @@ You can access the only API endpoint in the browser with the url provided below.
 http://127.0.0.1:8000/aptoide/
 ```
 
-# List of some packages
+## List of some packages
 
 - com.facebook.katana
 - com.whatsapp
@@ -75,13 +76,27 @@ http://127.0.0.1:8000/aptoide/
 
 ## Tests
 
+The method scrape_metadata was tested 5 types with the strs:
+
+- com.facebook.katana
+- com.duolingo
+- codematics.universal.tv.remote.control
+- com.google.android.youtube
+- gugugaga
+
+This is tested with pytest. Each method (expect for method that tests package name guguga) tests both the metadata result and the message result with what is expected to return.
+
+To run the tests we simply restart the docker compose. The tests run when we (re)start it.
+
+## Swagger
+
 TODO
 
-## 🎯 Evaluation Criteria
+## Thinking and Decisions of implementation
 
 - The structure of the code follows a main.py file in root. The route is described in the routes/api/ folder. There is also /tests folder for testing, a /utils folder for util functions and a /services folder for helper functions.
-- The only endpoint allows to fetch the Aptoide API to get all relevent metadata.
+- The only endpoint allows to fetch the Aptoide API to get all relevent metadata from the package with the given name.
 - If no parameter is provided, is None or empty, accepts com.facebook.katana as default parameter
 - FastAPI was chosen because of the built-in swagger and also because it provides better run time than Django for instance.
-- No API token authentication was design, i believed it wasn't necessary for this test.
+- No API token authentication was implemented, I believed it wasn't necessary for this assignement.
 - The testing is done by running docker compose. One of the images run the tests, whenever we run the command to start the webapp.
