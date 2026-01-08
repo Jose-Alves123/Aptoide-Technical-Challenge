@@ -1,8 +1,5 @@
 # 🐍 Python Developer Challenge – Aptoide Scraper API
 
-Welcome to the coding challenge! 🚀
-Your task is to build a Python-based API that scrapes package data from the Aptoide app store (https://en.aptoide.com/) and exposes it through a REST endpoint.
-
 This project has one unique endpoint
 
 ```
@@ -64,6 +61,17 @@ You can access the only API endpoint in the browser with the url provided below.
 ```
 http://127.0.0.1:8000/aptoide/
 ```
+
+# List of some packages
+
+- com.facebook.katana
+- com.whatsapp
+- com.google.android.youtube
+- com.duolingo
+- net.daum.android.map
+- codematics.universal.tv.remote.control
+- com.azure.authenticator
+- com.google.android.apps.wallpaper
 
 ## Tests
 

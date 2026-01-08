@@ -1,5 +1,5 @@
-from routes.api.scraper import router as scraper_router
+from routes.api.aptoide import router as aptoide_router
 
 __all__ = [
-    "scraper_router"
+    "aptoide_router"
 ]
