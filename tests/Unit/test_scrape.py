@@ -7,8 +7,8 @@ client = TestClient(app)
 
 
 def test_scrape_facebook():
-    res = scrape_metadata("com.facebook.katana")
-    expected_metadata = {
+    res : dict = scrape_metadata("com.facebook.katana")
+    expected_metadata : dict = {
       "name": "Facebook",
       "size": 73126576,
       "downloads": 2000000000,
@@ -26,14 +26,14 @@ def test_scrape_facebook():
       "country": "US",
       "state_city": "CA"
     }
-    expected_message = "Data retrieved with success"
+    expected_message : str = "Data retrieved with success"
 
     assert res["metadata"] == expected_metadata
     assert res["message"] == expected_message
 
 def test_scrape_duolingo():
-    res = scrape_metadata("com.duolingo")
-    expected_metadata = {
+    res : dict = scrape_metadata("com.duolingo")
+    expected_metadata : dict= {
       "name": "Duolingo - Learn Languages Free",
       "size": 37870664,
       "downloads": 500000000,
@@ -51,14 +51,14 @@ def test_scrape_duolingo():
       "country": None,
       "state_city": None
     }
-    expected_message = "Data retrieved with success"
+    expected_message : str = "Data retrieved with success"
 
     assert res["metadata"] == expected_metadata
     assert res["message"] == expected_message
 
 def test_scrape_youtube():
-    res = scrape_metadata("com.google.android.youtube")
-    expected_metadata = {
+    res : dict = scrape_metadata("com.google.android.youtube")
+    expected_metadata : dict = {
       "name": "YouTube",
       "size": 170753572,
       "downloads": 2000000000,
@@ -79,14 +79,14 @@ def test_scrape_youtube():
       "country": "US",
       "state_city": "California"
     }
-    expected_message = "Data retrieved with success"
+    expected_message : str = "Data retrieved with success"
 
     assert res["metadata"] == expected_metadata
     assert res["message"] == expected_message
 
 def test_scrape_remote_controller():
-    res = scrape_metadata("codematics.universal.tv.remote.control")
-    expected_metadata = {
+    res : dict = scrape_metadata("codematics.universal.tv.remote.control")
+    expected_metadata : dict = {
       "name": "Universal TV Remote Control",
       "size": 9199046,
       "downloads": 100000000,
@@ -102,14 +102,14 @@ def test_scrape_remote_controller():
       "country": None,
       "state_city": None
     }
-    expected_message = "Data retrieved with success"
+    expected_message : str = "Data retrieved with success"
 
     assert res["metadata"] == expected_metadata
     assert res["message"] == expected_message
 
 def test_scrape_gugugaga():
-    res = scrape_metadata("gugugaga")
-    expected_message = "An error occurred"
+    res : dict = scrape_metadata("gugugaga")
+    expected_message : str = "An error occurred"
 
     assert res["message"] == expected_message
 

@@ -1,9 +1,31 @@
 from utils import json_util, logger_util
-import requests, logging
+from typing import Optional, Any, Dict
+import requests
 
 URL: str = "https://ws75.aptoide.com/api/7/app/getMeta"
 
-def __dig(d, *keys, default=None):
+def __dig(d : dict | None, *keys, default=None) -> Any:
+    """
+    Retrieves a nested value from a dictionary.
+
+    This helper function traverses a dictionary using a sequence of keys.
+    If any key is missing or the current value is not a dictionary,
+    the provided default value is returned.
+
+    Parameters
+    ----------
+    d : dict[str, Any]
+        The dictionary to traverse.
+    *keys : Iterable[str]
+        A sequence of keys representing the path to the desired value.
+    default : Any, optional
+        The value to return if the path cannot be fully resolved.
+
+    Returns
+    -------
+    Any | None
+        The value found at the given path or the default value.
+    """
     for k in keys:
         if not isinstance(d, dict):
             return default
@@ -12,6 +34,25 @@ def __dig(d, *keys, default=None):
 
 
 def scrape_metadata(package_name: str) -> dict:
+    """
+    Retrieve and normalize metadata for an Android application from Aptoide.
+
+    This function calls the Aptoide API, extracts relevant application
+    metadata, parses certificate owner information, and returns a
+    standardized success or error response.
+
+    Parameters
+    ----------
+    package_name : str
+        The Android package name (e.g., ``com.facebook.katana``).
+
+    Returns
+    -------
+    dict[str, Any]
+        A JSON-compatible dictionary containing either:
+        - A success response with normalized metadata
+        - An error response describing the failure
+    """
     params : dict[str, str] = {"package_name": package_name}
     r = requests.get(URL, params=params, timeout=10)
 
@@ -29,7 +70,7 @@ def scrape_metadata(package_name: str) -> dict:
     message: str = "Data retrieved with success"
     data : dict[str, str|int|bool|list] = r.json()["data"]
 
-    owner = __dig(data, "file", "signature", "owner")
+    owner : str | None = __dig(data, "file", "signature", "owner")
     parsed : dict[str, str] = (
         dict(
             part.strip().split("=", 1)

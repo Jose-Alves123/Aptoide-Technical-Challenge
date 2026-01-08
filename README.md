@@ -74,9 +74,13 @@ http://127.0.0.1:8000/aptoide/
 - com.azure.authenticator
 - com.google.android.apps.wallpaper
 
+## Logging
+
+We log the result of the API fetched, as a error or info, deppending of the API status code. This is only appears in the terminal, is not appended to file or saved into a DB.
+
 ## Tests
 
-The method scrape_metadata was tested 5 types with the strs:
+The method scrape_metadata was tested 5 times with the strs:
 
 - com.facebook.katana
 - com.duolingo
@@ -88,9 +92,21 @@ This is tested with pytest. Each method (expect for method that tests package na
 
 To run the tests we simply restart the docker compose. The tests run when we (re)start it.
 
-## Swagger
+## Swagger and Code Documentation
 
-TODO
+Swagger is supoorted by default by FastAPI.
+
+Three schemas were implemented for this
+
+- SuccessResponse
+- ErrorResponse
+- AppMetadatada
+
+AppMetadatada is all the values that important from the package data obtained. This is passed inside the SuccessResponse.
+
+Each function also has docstrings to describes, the parameters and expected results from the computation.
+
+Variables are written with type hinting, usefull with pydantic (that comes with FastAPI).
 
 ## Thinking and Decisions of implementation
 
