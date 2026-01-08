@@ -1,0 +1,18 @@
+services:
+  barista-api:  
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: aptoide-api
+    ports:
+     - "8000:8000" 
+
+
+  #tests:
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile
+  #  container_name: aptoide-tests
+  #  command: pytest -v -vv --disable-warnings
+
+
