@@ -1,5 +1,4 @@
 from fastapi import APIRouter, status, HTTPException
-import logging
 from services import scraper_service
 
 router = APIRouter()
@@ -13,4 +12,10 @@ async def package_data(package_name : str | None = DEFAULT_PACKAGE_NAME):
     if not len(package_name):
         package_name = DEFAULT_PACKAGE_NAME
 
-    return scraper_service.scrape_metadata(package_name)
+    
+    data =  scraper_service.scrape_metadata(package_name)
+
+    if "metadata" not in data:
+        raise HTTPException(status_code=400, detail=data)
+
+    return data
